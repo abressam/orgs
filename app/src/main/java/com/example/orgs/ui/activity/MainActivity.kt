@@ -2,28 +2,31 @@ package com.example.orgs.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.R
+import com.example.orgs.model.Products
 import com.example.orgs.ui.recyclerview.adapter.ListProductsAdapter
+import java.math.BigDecimal
 
 class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val titulo = findViewById<TextView>(R.id.titulo)
-//        titulo.text = "Cesta de Frutas"
-//
-//        val descricao = findViewById<TextView>(R.id.descricao)
-//        descricao.text = "Laranja, manga e uva"
-//
-//        val preco = findViewById<TextView>(R.id.preco)
-//        preco.text = "19.99"
-
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.adapter = ListProductsAdapter()
+        recyclerView.adapter = ListProductsAdapter(this, products = listOf(
+            Products(
+                title_product = "teste",
+                description = "teste teste",
+                price = BigDecimal("19.99")
+            ),
+            Products(
+                title_product = "teste 1",
+                description = "teste teste 1",
+                price = BigDecimal("14.99")
+            )
+        ))
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
