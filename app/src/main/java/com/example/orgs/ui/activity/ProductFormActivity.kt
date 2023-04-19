@@ -11,38 +11,48 @@ import com.example.orgs.model.Products
 import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
+
+    private val dao = ProductsDao()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val saveButton = findViewById<Button>(R.id.save_button)
+        configSaveButton()
+    }
+
+    private fun configSaveButton() {
+        val saveButton = findViewById<Button>(R.id.activity_product_form_save_button)
         saveButton.setOnClickListener {
-            val nameField = findViewById<EditText>(R.id.name)
-            val name = nameField.text.toString()
-
-            val descriptionField = findViewById<EditText>(R.id.description)
-            val description = descriptionField.text.toString()
-
-            val priceField = findViewById<EditText>(R.id.price)
-            val priceText = priceField.text.toString()
-
-            val price = if (priceText.isBlank()) {
-                BigDecimal.ZERO
-            } else {
-                BigDecimal(priceText)
-            }
-
-            val newProduct = Products (
-
-                title_product = name,
-                description = description,
-                price = price
-                    )
+            val newProduct = createProduct()
 
             Log.i("ProductFormActivity", "onCreate: $newProduct")
-            val dao = ProductsDao()
+
             dao.addProduct(newProduct)
             Log.i("ProductFormActivity", "onCreate: ${dao.listAll()}")
             finish()
         }
+    }
+
+    private fun createProduct(): Products {
+        val nameField = findViewById<EditText>(R.id.activity_product_form_title_product)
+        val name = nameField.text.toString()
+
+        val descriptionField = findViewById<EditText>(R.id.activity_product_form_description)
+        val description = descriptionField.text.toString()
+
+        val priceField = findViewById<EditText>(R.id.activity_product_form_price)
+        val priceText = priceField.text.toString()
+
+        val price = if (priceText.isBlank()) {
+            BigDecimal.ZERO
+        } else {
+            BigDecimal(priceText)
+        }
+
+        return Products(
+
+            title_product = name,
+            description = description,
+            price = price
+        )
     }
 
 }

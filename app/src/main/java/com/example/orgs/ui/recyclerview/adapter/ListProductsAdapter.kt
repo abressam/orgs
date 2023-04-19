@@ -11,18 +11,20 @@ import com.example.orgs.model.Products
 
 class ListProductsAdapter(
     private val context: Context,
-    private val products: List<Products>
+    products: List<Products>
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
+
+    private val products = products.toMutableList()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun vincula(product: Products) {
-            val title_product = itemView.findViewById<TextView>(R.id.title_product)
+            val title_product = itemView.findViewById<TextView>(R.id.product_item_title_product)
             title_product.text = product.title_product
 
-            val description = itemView.findViewById<TextView>(R.id.description)
+            val description = itemView.findViewById<TextView>(R.id.product_item_description)
             description.text = product.description
 
-            val price = itemView.findViewById<TextView>(R.id.price)
+            val price = itemView.findViewById<TextView>(R.id.product_item_price)
             price.text = product.price.toPlainString()
         }
     }
@@ -38,6 +40,12 @@ class ListProductsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.vincula(product)
+    }
+
+    fun refresh(products: List<Products>) {
+        this.products.clear()
+        this.products.addAll(products)
+        notifyDataSetChanged()
     }
 
 }

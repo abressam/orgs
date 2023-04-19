@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/title_product"
+        android:id="@+id/product_item_title_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -17,7 +17,7 @@
         />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/product_item_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -25,11 +25,11 @@
         tools:text="Laranja, uva e manga"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_product"
+        app:layout_constraintTop_toBottomOf="@id/product_item_title_product"
         />
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/product_item_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -37,7 +37,7 @@
         tools:text="19.99"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintTop_toBottomOf="@id/product_item_description"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
