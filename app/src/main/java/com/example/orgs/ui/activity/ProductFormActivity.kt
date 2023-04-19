@@ -3,24 +3,26 @@ package com.example.orgs.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import com.example.orgs.R
 import com.example.orgs.dao.ProductsDao
+import com.example.orgs.databinding.ActivityProductFormBinding
 import com.example.orgs.model.Products
 import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
 
+    private lateinit var binding: ActivityProductFormBinding
     private val dao = ProductsDao()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityProductFormBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         configSaveButton()
     }
 
     private fun configSaveButton() {
-        val saveButton = findViewById<Button>(R.id.activity_product_form_save_button)
-        saveButton.setOnClickListener {
+        binding.activityProductFormSaveButton.setOnClickListener {
             val newProduct = createProduct()
 
             Log.i("ProductFormActivity", "onCreate: $newProduct")
@@ -32,14 +34,9 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
     }
 
     private fun createProduct(): Products {
-        val nameField = findViewById<EditText>(R.id.activity_product_form_title_product)
-        val name = nameField.text.toString()
-
-        val descriptionField = findViewById<EditText>(R.id.activity_product_form_description)
-        val description = descriptionField.text.toString()
-
-        val priceField = findViewById<EditText>(R.id.activity_product_form_price)
-        val priceText = priceField.text.toString()
+        val name = binding.activityProductFormTitleProduct.text.toString()
+        val description = binding.activityProductFormDescription.text.toString()
+        val priceText = binding.activityProductFormPrice.text.toString()
 
         val price = if (priceText.isBlank()) {
             BigDecimal.ZERO
