@@ -2,11 +2,11 @@ package com.example.orgs.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.example.orgs.R
+import com.example.orgs.dao.ProductsDao
 import com.example.orgs.model.Products
 import java.math.BigDecimal
 
@@ -38,6 +38,10 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
                     )
 
             Log.i("ProductFormActivity", "onCreate: $newProduct")
+            val dao = ProductsDao()
+            dao.addProduct(newProduct)
+            Log.i("ProductFormActivity", "onCreate: ${dao.listAll()}")
+            finish()
         }
     }
 
