@@ -1,6 +1,7 @@
 package com.example.orgs.dao
 
 import com.example.orgs.model.Products
+import java.math.BigDecimal
 
 class ProductsDao {
 
@@ -13,6 +14,12 @@ class ProductsDao {
     }
 
     companion object {
-        private val products = mutableListOf<Products>()
+        private val products = mutableListOf<Products>(
+            Products(
+                title_product = "Salada de frutas",
+                description = "Uva, banana e kiwi",
+                price = BigDecimal("25.99")
+            )
+        )
     }
 }
