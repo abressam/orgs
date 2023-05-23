@@ -5,31 +5,57 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.databinding.ProductsItemBinding
 import com.example.orgs.model.Products
+import java.text.NumberFormat
+import java.util.Locale
 
 class ListProductsAdapter(
     products: List<Products>
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
 
+    private lateinit var mListener : RecyclerViewInterface
+    interface RecyclerViewInterface {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener : RecyclerViewInterface) {
+        mListener = listener
+    }
+
     private val products = products.toMutableList()
 
-    class ViewHolder(val binding: ProductsItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ProductsItemBinding, listener: RecyclerViewInterface) : RecyclerView.ViewHolder(binding.root) {
+        fun binding (products: Products) {
+            binding.productItemTitleProduct.text = products.title_product
+            binding.productItemDescription.text = products.description
+            val brasilianCoinFormat : String = brasilianCoin(products)
+            binding.productItemPrice.text = brasilianCoinFormat
+        }
+
+        private fun brasilianCoin(product: Products): String {
+            val format: NumberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+            return format.format(product.price)
+        }
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(bindingAdapterPosition)
+            }
+        }
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductsItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, mListener)
     }
 
     override fun getItemCount(): Int = products.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder) {
-            with(products[position]) {
-                binding.productItemTitleProduct.text = title_product
-                binding.productItemDescription.text = description
-                binding.productItemPrice.text = price.toPlainString()
-            }
+        holder.binding(products[position])
+        when (holder) {
+            is ViewHolder -> holder.binding(products[position])
+            else -> {}
         }
-
     }
 
     fun refresh(products: List<Products>) {
