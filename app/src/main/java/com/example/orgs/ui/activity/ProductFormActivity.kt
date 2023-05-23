@@ -19,6 +19,13 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         val view = binding.root
         setContentView(view)
         configSaveButton()
+        configCancelButton()
+    }
+
+    private fun configCancelButton() {
+        binding.activityProductFormCancelButton.setOnClickListener {
+            finish()
+        }
     }
 
     private fun configSaveButton() {
