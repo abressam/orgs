@@ -3,6 +3,7 @@ package com.example.orgs.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.example.orgs.R
 import com.example.orgs.dao.ProductsDao
 import com.example.orgs.databinding.ActivityProductFormBinding
@@ -20,6 +21,14 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         setContentView(view)
         configSaveButton()
         configCancelButton()
+
+        binding.activityProductImage.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setView(R.layout.activity_product_form_image)
+                .setPositiveButton("Carregar") { _, _ -> }
+                .setNegativeButton("Cancelar") { _, _ -> }
+                .show()
+        }
     }
 
     private fun configCancelButton() {
@@ -52,7 +61,6 @@ class ProductFormActivity : AppCompatActivity(R.layout.activity_product_form) {
         }
 
         return Products(
-
             title_product = name,
             description = description,
             price = price
