@@ -3,6 +3,7 @@ package com.example.orgs.ui.recyclerview.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.orgs.databinding.ProductsItemBinding
 import com.example.orgs.model.Products
 import java.text.NumberFormat
@@ -29,6 +30,7 @@ class ListProductsAdapter(
             binding.productItemDescription.text = products.description
             val brasilianCoinFormat : String = brasilianCoin(products)
             binding.productItemPrice.text = brasilianCoinFormat
+            binding.productItemImage.load("https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
         }
 
         private fun brasilianCoin(product: Products): String {
