@@ -3,9 +3,10 @@ package com.example.orgs.model
 import java.math.BigDecimal
 
 data class Products(
-    val title_product: String,
-    val description: String,
-    val price: BigDecimal
+    var title_product: String,
+    var description: String,
+    var price: BigDecimal,
+    val image: String? = null
     )
 
 
